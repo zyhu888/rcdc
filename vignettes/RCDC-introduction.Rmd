@@ -46,8 +46,8 @@ matrices. Rows and columns index nodes, and the third dimension indexes
 replicated noisy network observations. Continuous node covariates can be passed
 through `X_cont`, and categorical covariates can be passed through `X_cat`.
 
-The following example simulates an eight-community setting with four replicated
-noisy networks, eight continuous covariates, and two categorical covariates.
+The following example simulates a three-community setting with four replicated
+noisy networks, three continuous covariates, and two categorical covariates.
 
 ```{r simulation-setup, eval = FALSE}
 library(RCDC)
@@ -56,14 +56,14 @@ library(aricode)
 seed <- 123
 set.seed(seed)
 
-n <- 200
-k <- 8
-M_local <- 4
-burn_in <- 500
-n_iter <- 1000
+n <- 60
+K0 <- 3
+M <- 4
+burn <- 200
+niter <- 500
 
-rho_combos <- c(0.10, 0.10)
-zeta_combos <- list(c(1.0, 1.0))
+rho <- c(0.10, 0.30)
+zeta <- c(1.0, 1.0)
 
 hyper <- list(
   sigma = 10,
@@ -71,36 +71,26 @@ hyper <- list(
   b_alpha = 1,
   a_beta = 1,
   b_beta = 1,
-  mu0 = rep(0, 8),
-  iota0 = rep(1, 8),
-  a_tau = rep(1, 8),
-  b_tau = rep(0.01, 8),
-  F_cat = c(8, 8),
+  mu0 = rep(0, K0),
+  iota0 = rep(1, K0),
+  a_tau = rep(1, K0),
+  b_tau = rep(0.01, K0),
+  F_cat = c(K0, K0),
   gamma0 = c(1, 1),
   d = 1
 )
 
-B_strong <- matrix(-2, k, k)
-diag(B_strong) <- 0
+B <- matrix(-1.5, K0, K0)
+diag(B) <- 0
 
-cat_rate_strong <- c(0.7, 0.7)
+mu <- diag(K0) - matrix(1 / K0, K0, K0)
+mu <- mu * (10 / sqrt(2))
 
-means_k8 <- diag(k) - matrix(1 / k, k, k)
-means_k8 <- means_k8 * (10 / sqrt(2))
-
-se_strong <- 3
-tau2 <- diag(se_strong^2, 8)
-
-theta_vector <- rnorm(
-  n,
-  mean = zeta_combos[[1]][1],
-  sd = zeta_combos[[1]][2]
-)
-B_local <- B_strong
-alpha_local <- matrix(rho_combos[1], k, k)
-beta_local <- matrix(rho_combos[2], k, k)
-cat_rate_local <- cat_rate_strong
-tau2_local <- tau2
+tau2 <- diag(3^2, K0)
+theta <- rnorm(n, mean = zeta[1], sd = zeta[2])
+alpha <- matrix(rho[1], K0, K0)
+beta <- matrix(rho[2], K0, K0)
+cat_rate <- c(0.7, 0.7)
 ```
 
 The simulated data are generated with `sim_data_new_thetainput()`:
@@ -109,18 +99,18 @@ The simulated data are generated with `sim_data_new_thetainput()`:
 sim <- sim_data_new_thetainput(
   seed = seed,
   n = n,
-  K = k,
-  M = M_local,
-  p_cont = 8,
+  K = K0,
+  M = M,
+  p_cont = K0,
   p_cat = 2,
-  F_s = 8,
-  theta_true = theta_vector,
-  B = B_local,
-  alpha = alpha_local,
-  beta = beta_local,
-  mu = means_k8,
-  tau2 = tau2_local,
-  correct_rate = cat_rate_local
+  F_s = K0,
+  theta_true = theta,
+  B = B,
+  alpha = alpha,
+  beta = beta,
+  mu = mu,
+  tau2 = tau2,
+  correct_rate = cat_rate
 )
 
 z_true <- sim$truth$z
@@ -129,26 +119,27 @@ z_true <- sim$truth$z
 # Running RCDC
 
 Use `RobustCDC()` to fit candidate values of `K` and select the model with the
-smallest WAIC. The example below searches over `K = 5, ..., 10` and compares
+smallest WAIC. The example below searches over `K = 2, ..., 5` and compares
 the resulting labels with the known simulation truth using ARI and NMI.
 
 ```{r robustcdc-fit, eval = FALSE}
-RCDC <- RobustCDC(
+fit <- RobustCDC(
   A_tilde = sim$A_tilde,
   X_cont = sim$X_cont,
   X_cat = sim$X_cat,
-  K = 5:10,
-  n_iter = n_iter,
-  burn_in = burn_in,
+  K = 2:5,
+  n_iter = niter,
+  burn_in = burn,
   hyper = hyper
 )
 
-z_RCDC <- RCDC$z
-ARI_RCDC <- ARI(z_RCDC, z_true)
-NMI_RCDC <- NMI(z_RCDC, z_true)
-k_RCDC <- length(unique(z_RCDC))
+print(fit)
 
-RCDC
+z_hat <- fit$z
+ARI_RCDC <- ARI(z_hat, z_true)
+NMI_RCDC <- NMI(z_hat, z_true)
+k_RCDC <- length(unique(z_hat))
+
 ARI_RCDC
 NMI_RCDC
 k_RCDC
@@ -163,9 +154,9 @@ fit_k <- robustCDC_MCMC(
   A_tilde = sim$A_tilde,
   X_cont = sim$X_cont,
   X_cat = sim$X_cat,
-  K = 10,
-  n_iter = n_iter,
-  burn_in = burn_in,
+  K = K0,
+  n_iter = niter,
+  burn_in = burn,
   hyper = hyper
 )
 ```

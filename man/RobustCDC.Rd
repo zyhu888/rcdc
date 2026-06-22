@@ -40,20 +40,19 @@ The returned label vector \code{z} is obtained from the post-burn-in MCMC
 samples by taking the posterior modal community label for each node.
 }
 \examples{
-\dontrun{
 library(RCDC)
 library(aricode)
 
 seed <- 123
 set.seed(seed)
 
-n <- 200
-K0 <- 8
+n <- 60
+K0 <- 3
 M <- 4
-burn <- 500
-niter <- 1000
+burn <- 200
+niter <- 500
 
-rho <- c(0.10, 0.10)
+rho <- c(0.10, 0.30)
 zeta <- c(1.0, 1.0)
 
 hyper <- list(
@@ -62,22 +61,22 @@ hyper <- list(
   b_alpha = 1,
   a_beta = 1,
   b_beta = 1,
-  mu0 = rep(0, 8),
-  iota0 = rep(1, 8),
-  a_tau = rep(1, 8),
-  b_tau = rep(0.01, 8),
-  F_cat = c(8, 8),
+  mu0 = rep(0, K0),
+  iota0 = rep(1, K0),
+  a_tau = rep(1, K0),
+  b_tau = rep(0.01, K0),
+  F_cat = c(K0, K0),
   gamma0 = c(1, 1),
   d = 1
 )
 
-B <- matrix(-2, K0, K0)
+B <- matrix(-1.5, K0, K0)
 diag(B) <- 0
 
 mu <- diag(K0) - matrix(1 / K0, K0, K0)
 mu <- mu * (10 / sqrt(2))
 
-tau2 <- diag(3^2, 8)
+tau2 <- diag(3^2, K0)
 theta <- rnorm(n, mean = zeta[1], sd = zeta[2])
 alpha <- matrix(rho[1], K0, K0)
 beta <- matrix(rho[2], K0, K0)
@@ -88,9 +87,9 @@ sim <- sim_data_new_thetainput(
   n = n,
   K = K0,
   M = M,
-  p_cont = 8,
+  p_cont = K0,
   p_cat = 2,
-  F_s = 8,
+  F_s = K0,
   theta_true = theta,
   B = B,
   alpha = alpha,
@@ -104,11 +103,13 @@ fit <- RobustCDC(
   A_tilde = sim$A_tilde,
   X_cont = sim$X_cont,
   X_cat = sim$X_cat,
-  K = 5:10,
+  K = 2:5,
   n_iter = niter,
   burn_in = burn,
   hyper = hyper
 )
+
+print(fit)
 
 z_hat <- fit$z
 z_true <- sim$truth$z
@@ -117,7 +118,6 @@ ARI(z_hat, z_true)
 NMI(z_hat, z_true)
 length(unique(z_hat))
 fit$waic_table
-}
 }
 \references{
 XXX. References will be added after the manuscript is available.
