@@ -7,7 +7,8 @@ GPL-3](https://img.shields.io/badge/License-GPL--3-green.svg)](LICENSE.md)
 ## Robust Covariate-Assisted Community Detection
 
 The package implements Robust Covariate-Assisted Community Detection
-(RCDC) for replicated noisy networks with node-level covariates.
+(RCDC) for multiple noisy observations of a latent true network with node-level
+covariates.
 
 This R package provides functions to:
 
@@ -38,7 +39,7 @@ devtools::install_github("zyhu888/RCDC")
 - `robustCDC_MCMC_saveallparameters()` runs the sampler and stores full
   parameter traces for detailed diagnostics.
 
-- `sim_data_new_thetainput()` simulates replicated noisy networks and
+- `dg()` simulates multiple noisy observations of a latent true network and
   covariates from user-specified parameters.
 
 ## Parallel Runs

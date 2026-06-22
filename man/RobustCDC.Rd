@@ -6,7 +6,7 @@ RobustCDC(A_tilde, X_cont = NULL, X_cat = NULL, K = 2:10,
   n_iter = 3000, burn_in = 500, hyper, init = NULL, verbose = TRUE)
 }
 \arguments{
-\item{A_tilde}{A three-dimensional array of replicated noisy adjacency matrices.}
+\item{A_tilde}{A three-dimensional array of noisy adjacency matrices observed from the same latent true network.}
 \item{X_cont}{Optional matrix of continuous node covariates.}
 \item{X_cat}{Optional matrix of categorical node covariates.}
 \item{K}{Candidate numbers of communities.}
@@ -30,7 +30,7 @@ after burn-in, computes WAIC, and keeps the clustering estimate from the model
 with the smallest WAIC.
 
 The input \code{A_tilde} should be an \code{n} by \code{n} by \code{M} array,
-where each slice is a replicated noisy adjacency matrix on the same set of
+where each slice is a noisy adjacency matrix on the same set of
 nodes. Continuous covariates are supplied through \code{X_cont}; categorical
 covariates are supplied through \code{X_cat}. The hyperparameter list controls
 the priors for the latent network, observation error rates, covariate
@@ -82,7 +82,7 @@ alpha <- matrix(rho[1], K0, K0)
 beta <- matrix(rho[2], K0, K0)
 cat_rate <- c(0.7, 0.7)
 
-sim <- sim_data_new_thetainput(
+sim <- dg(
   seed = seed,
   n = n,
   K = K0,

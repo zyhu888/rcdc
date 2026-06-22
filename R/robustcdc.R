@@ -538,10 +538,10 @@ robustCDC_MCMC <- function(
       # true edge between node i and node j (j   i)
       A_i  <- A[i, idx] # 1   n
       # C1_i[j] =  {m=1}^M I{ (A~)^{(m)}_{ij} = 1 }
-      # number of observed noisy networks where edge (i,j) is observed as 1
+      # number of noisy observations where edge (i,j) is observed as 1
       C1_i <- Count_1[i, idx] # 1   n
       # C0_i[j] =  _{m=1}^M I{ \tilde A^{(m)}_{ij} = 0 }
-      # number of observed noisy networks where edge (i,j) is observed as 0
+      # number of noisy observations where edge (i,j) is observed as 0
       C0_i <- Count_0[i, idx] # 1   n
       
       #beta_mat[k, j]  =  _{k z(j)}
@@ -1450,10 +1450,10 @@ robustCDC_MCMC_saveallparameters <- function(
       # true edge between node i and node j (j   i)
       A_i  <- A[i, idx] # 1   n
       # C1_i[j] =  {m=1}^M I{ (A~)^{(m)}_{ij} = 1 }
-      # number of observed noisy networks where edge (i,j) is observed as 1
+      # number of noisy observations where edge (i,j) is observed as 1
       C1_i <- Count_1[i, idx] # 1   n
       # C0_i[j] =  _{m=1}^M I{ \tilde A^{(m)}_{ij} = 0 }
-      # number of observed noisy networks where edge (i,j) is observed as 0
+      # number of noisy observations where edge (i,j) is observed as 0
       C0_i <- Count_0[i, idx] # 1   n
       
       #beta_mat[k, j]  =  _{k z(j)}
@@ -1663,7 +1663,7 @@ robustCDC_MCMC_saveallparameters <- function(
 
 
 ## ---- date generation, this can be used for different theta ----
-sim_data_new_thetainput <- function(
+dg <- function(
     seed,
     n,
     K,

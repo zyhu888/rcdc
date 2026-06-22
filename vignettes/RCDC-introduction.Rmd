@@ -18,7 +18,7 @@ library(RCDC)
 # Introduction
 
 The **RCDC** package provides tools for robust community detection in
-replicated noisy networks with node-level covariates. The main workflow models
+multiple noisy observations of a latent true network with node-level covariates. The main workflow models
 the latent network, observation error rates, community memberships, and
 covariate distributions jointly through an MCMC sampler.
 
@@ -41,13 +41,14 @@ interface.
 
 # Simulation Setup
 
-`RCDC` expects a three-dimensional array of replicated noisy adjacency
+`RCDC` expects a three-dimensional array of noisy adjacency
 matrices. Rows and columns index nodes, and the third dimension indexes
-replicated noisy network observations. Continuous node covariates can be passed
+noisy observations of the same latent true network. Continuous node covariates can be passed
 through `X_cont`, and categorical covariates can be passed through `X_cat`.
 
-The following example simulates a three-community setting with four replicated
-noisy networks, three continuous covariates, and two categorical covariates.
+The following example simulates a three-community setting with four noisy
+observations of a latent true network, three continuous covariates, and two
+categorical covariates.
 
 ```{r simulation-setup, eval = FALSE}
 library(RCDC)
@@ -93,10 +94,10 @@ beta <- matrix(rho[2], K0, K0)
 cat_rate <- c(0.7, 0.7)
 ```
 
-The simulated data are generated with `sim_data_new_thetainput()`:
+The simulated data are generated with `dg()`:
 
 ```{r simulate-data, eval = FALSE}
-sim <- sim_data_new_thetainput(
+sim <- dg(
   seed = seed,
   n = n,
   K = K0,

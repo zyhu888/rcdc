@@ -48,7 +48,7 @@ alpha <- matrix(rho[1], K0, K0)
 beta <- matrix(rho[2], K0, K0)
 cat_rate <- c(0.7, 0.7)
 
-sim <- sim_data_new_thetainput(
+sim <- dg(
   seed = seed,
   n = n,
   K = K0,
