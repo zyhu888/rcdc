@@ -1,5 +1,7 @@
+^RCDC\\.Rproj$
+^\\.Rproj\\.user$
 ^\\.git$
 ^\\.github$
 ^\\.gitignore$
-^LICENSE$
 ^README\\.Rmd$
+^LICENSE\\.md$

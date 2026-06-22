@@ -1,13 +1,23 @@
-RCDC: Robust Covariate-Assisted Community Detection
-================
+---
+title: "RCDC: Robust Covariate-Assisted Community Detection"
+output: github_document
+bibliography: inst/REFERENCES.bib
+---
 
-[![License:
-GPL-3](https://img.shields.io/badge/License-GPL--3-green.svg)](LICENSE.md)
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+[![License: GPL-3](https://img.shields.io/badge/License-GPL--3-green.svg)](LICENSE.md)
 
 ## Robust Covariate-Assisted Community Detection
 
-The package implements Robust Covariate-Assisted Community Detection
-(RCDC) for replicated noisy networks with node-level covariates.
+The `RCDC` package implements Robust Covariate-Assisted Community Detection
+for replicated noisy networks with node-level covariates.
 
 This R package provides functions to:
 
@@ -23,7 +33,7 @@ This R package provides functions to:
 
 You can install `RCDC` from GitHub with:
 
-``` r
+```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("zyhu888/RCDC")
 ```
@@ -45,13 +55,10 @@ devtools::install_github("zyhu888/RCDC")
 
 `RobustCDC()` evaluates candidate values of `K` serially. For large analyses,
 run fixed-`K` jobs in parallel with `robustCDC_MCMC()` and combine the WAIC
-results afterward. A SLURM/`parallel::mclapply()` template is included in the
-parallel-runs vignette and at:
+results afterward. See the parallel-runs vignette and the installed example:
 
-``` r
+```{r parallel-template, eval = FALSE}
 system.file("examples", "parallel-runs.R", package = "RCDC")
 ```
 
 ## References
-
-References will be added after the manuscript is available.

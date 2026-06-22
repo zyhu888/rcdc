@@ -1,0 +1,118 @@
+---
+title: "RCDC-introduction"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{RCDC-introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(RCDC)
+```
+
+# Introduction
+
+The **RCDC** package provides tools for robust community detection in
+replicated noisy networks with node-level covariates. The main workflow models
+the latent network, observation error rates, community memberships, and
+covariate distributions jointly through an MCMC sampler.
+
+The package implements:
+
+1. `RobustCDC()`  
+  The primary user-facing function. It fits a set of candidate community
+  numbers and selects the final value of `K` using WAIC.
+
+2. `robustCDC_MCMC()`  
+  The fixed-`K` sampler used internally by `RobustCDC()`. This is useful for
+  large-scale parallel workflows where each candidate `K` is run separately.
+
+3. `robustCDC_MCMC_saveallparameters()`  
+  A diagnostic version of the sampler that keeps full traces of latent
+  networks and model parameters.
+
+This vignette outlines the expected data format and the basic model-fitting
+interface.
+
+# Data Preparation
+
+`RCDC` expects a three-dimensional array of replicated noisy adjacency
+matrices:
+
+```{r data-format, eval = FALSE}
+dim(A_tilde)
+# n x n x M
+```
+
+Rows and columns index nodes, and the third dimension indexes replicated noisy
+network observations. Continuous node covariates can be passed through
+`X_cont`, and categorical covariates can be passed through `X_cat`.
+
+The hyperparameter list should contain prior settings for the network,
+observation error, covariate, and mixing-proportion components:
+
+```{r hyper, eval = FALSE}
+hyper <- list(
+  sigma = 10,
+  a_alpha = 1,
+  b_alpha = 1,
+  a_beta = 1,
+  b_beta = 1,
+  mu0 = c(0, 0, 0),
+  iota0 = c(1, 1, 1),
+  a_tau = c(1, 1, 1),
+  b_tau = c(0.01, 0.01, 0.01),
+  F_cat = c(8),
+  gamma0 = c(1),
+  d = 1
+)
+```
+
+# Running RCDC
+
+Use `RobustCDC()` when you want the package to fit multiple candidate values of
+`K` and select the model with the smallest WAIC:
+
+```{r robustcdc-fit, eval = FALSE}
+fit <- RobustCDC(
+  A_tilde = A_tilde,
+  X_cont = X_cont,
+  X_cat = NULL,
+  K = 5:30,
+  n_iter = 2000,
+  burn_in = 1000,
+  hyper = hyper
+)
+
+fit
+fit$z
+fit$waic_table
+```
+
+# Fixed-K MCMC
+
+For a single fixed value of `K`, call `robustCDC_MCMC()` directly:
+
+```{r fixed-k, eval = FALSE}
+fit_k <- robustCDC_MCMC(
+  A_tilde = A_tilde,
+  X_cont = X_cont,
+  X_cat = NULL,
+  K = 10,
+  n_iter = 2000,
+  burn_in = 1000,
+  hyper = hyper
+)
+```
+
+For large candidate grids, see the `parallel-runs` vignette for a template that
+runs fixed-`K` jobs in parallel and combines WAIC values afterward.
+
+# References
+
+References will be added after the manuscript is available.
