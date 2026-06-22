@@ -1,13 +1,25 @@
 ## Parallel RobustCDC runs
 ##
-## RobustCDC() evaluates candidate values of K serially. For large analyses,
-## run robustCDC_MCMC() separately for each candidate K, save one result per
-## task, and select the final clustering by the smallest WAIC.
+## This example mirrors the small runnable example in ?RobustCDC, but evaluates
+## candidate K values in parallel by calling robustCDC_MCMC() directly.
 
-.libPaths("~/rlibs")
+## Optional: uncomment if you use a custom R library on a cluster.
+## .libPaths("~/rlibs")
 
 library(RCDC)
 library(parallel)
+
+seed <- 123
+set.seed(seed)
+
+n <- 60
+K0 <- 3
+M <- 4
+burn <- 200
+niter <- 500
+
+rho <- c(0.10, 0.30)
+zeta <- c(1.0, 1.0)
 
 hyper <- list(
   sigma = 10,
@@ -15,48 +27,71 @@ hyper <- list(
   b_alpha = 1,
   a_beta = 1,
   b_beta = 1,
-  mu0 = c(0, 0, 0),
-  iota0 = c(1, 1, 1),
-  a_tau = c(1, 1, 1),
-  b_tau = c(0.01, 0.01, 0.01),
-  F_cat = c(8),
-  gamma0 = c(1),
+  mu0 = rep(0, K0),
+  iota0 = rep(1, K0),
+  a_tau = rep(1, K0),
+  b_tau = rep(0.01, K0),
+  F_cat = c(K0, K0),
+  gamma0 = c(1, 1),
   d = 1
 )
 
-candidate_K <- 5:30
-n_iter <- 2000
-burn_in <- 1000
+B <- matrix(-1.5, K0, K0)
+diag(B) <- 0
+
+mu <- diag(K0) - matrix(1 / K0, K0, K0)
+mu <- mu * (10 / sqrt(2))
+
+tau2 <- diag(3^2, K0)
+theta <- rnorm(n, mean = zeta[1], sd = zeta[2])
+alpha <- matrix(rho[1], K0, K0)
+beta <- matrix(rho[2], K0, K0)
+cat_rate <- c(0.7, 0.7)
+
+sim <- sim_data_new_thetainput(
+  seed = seed,
+  n = n,
+  K = K0,
+  M = M,
+  p_cont = K0,
+  p_cat = 2,
+  F_s = K0,
+  theta_true = theta,
+  B = B,
+  alpha = alpha,
+  beta = beta,
+  mu = mu,
+  tau2 = tau2,
+  correct_rate = cat_rate
+)
+
+candidate_K <- 2:5
 n_cores <- length(candidate_K)
 
-task_index <- as.integer(Sys.getenv("SLURM_ARRAY_TASK_ID"))
-id_run <- seq_along(network_list)
-id <- id_run[task_index]
-
-out_dir <- "/path/to/results"
+out_dir <- file.path(tempdir(), "RCDC_parallel_example")
 if (!dir.exists(out_dir)) {
   dir.create(out_dir, recursive = TRUE)
 }
 
 RNGkind("L'Ecuyer-CMRG")
-set.seed(id)
+set.seed(seed)
 
 run_one_K <- function(Ki) {
   tryCatch({
-    out_file <- file.path(out_dir, sprintf("id%dK%d.rds", id, Ki))
+    out_file <- file.path(out_dir, sprintf("K%d.rds", Ki))
 
     if (file.exists(out_file)) {
-      message(sprintf("id %d K %d already exists, skipping: %s", id, Ki, out_file))
+      message(sprintf("K %d already exists, skipping: %s", Ki, out_file))
       return(NULL)
     }
 
     fit <- robustCDC_MCMC(
-      A_tilde = network_list[[id]]$network_array,
-      X_cont = as.matrix(network_list[[id]]$cov[, 2:4]),
-      X_cat = NULL,
+      A_tilde = sim$A_tilde,
+      X_cont = sim$X_cont,
+      X_cat = sim$X_cat,
       K = Ki,
-      n_iter = n_iter,
-      burn_in = burn_in,
+      n_iter = niter,
+      burn_in = burn,
       hyper = hyper
     )
 
@@ -72,7 +107,7 @@ run_one_K <- function(Ki) {
       suppressWarnings(loo::waic(log_lik_total))$estimates["waic", "Estimate"]
     }
 
-    z_post <- fit$z[(burn_in + 1):n_iter, ]
+    z_post <- fit$z[(burn + 1):niter, ]
     z_hat <- apply(
       z_post,
       2,
@@ -80,12 +115,12 @@ run_one_K <- function(Ki) {
     )
 
     tmp_file <- paste0(out_file, ".tmp")
-    saveRDS(list(z = z_hat, waic = waic_val), file = tmp_file)
+    saveRDS(list(K = Ki, z = z_hat, waic = waic_val), file = tmp_file)
     file.rename(tmp_file, out_file)
 
     invisible(NULL)
   }, error = function(e) {
-    message(sprintf("ERROR: id %d K %d failed: %s", id, Ki, e$message))
+    message(sprintf("ERROR: K %d failed: %s", Ki, e$message))
     invisible(NULL)
   })
 }
@@ -96,3 +131,22 @@ mclapply(
   mc.cores = n_cores,
   mc.set.seed = TRUE
 )
+
+res <- lapply(candidate_K, function(Ki) {
+  readRDS(file.path(out_dir, sprintf("K%d.rds", Ki)))
+})
+
+waic_table <- data.frame(
+  K = vapply(res, `[[`, integer(1), "K"),
+  WAIC = vapply(res, `[[`, numeric(1), "waic")
+)
+waic_table$Delta_WAIC <- waic_table$WAIC - min(waic_table$WAIC, na.rm = TRUE)
+
+best <- res[[which.min(waic_table$WAIC)]]
+z_hat <- best$z
+z_true <- sim$truth$z
+
+print(waic_table)
+cat("ARI:", aricode::ARI(z_hat, z_true), "\n")
+cat("NMI:", aricode::NMI(z_hat, z_true), "\n")
+cat("Selected K:", best$K, "\n")
