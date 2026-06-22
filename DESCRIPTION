@@ -28,6 +28,7 @@ Imports:
 URL: https://github.com/zyhu888/RCDC
 BugReports: https://github.com/zyhu888/RCDC/issues
 Suggests:
+    aricode,
     knitr,
     parallel,
     rmarkdown

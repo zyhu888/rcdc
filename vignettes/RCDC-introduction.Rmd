@@ -39,59 +39,119 @@ The package implements:
 This vignette outlines the expected data format and the basic model-fitting
 interface.
 
-# Data Preparation
+# Simulation Setup
 
 `RCDC` expects a three-dimensional array of replicated noisy adjacency
-matrices:
+matrices. Rows and columns index nodes, and the third dimension indexes
+replicated noisy network observations. Continuous node covariates can be passed
+through `X_cont`, and categorical covariates can be passed through `X_cat`.
 
-```{r data-format, eval = FALSE}
-dim(A_tilde)
-# n x n x M
-```
+The following example simulates an eight-community setting with four replicated
+noisy networks, eight continuous covariates, and two categorical covariates.
 
-Rows and columns index nodes, and the third dimension indexes replicated noisy
-network observations. Continuous node covariates can be passed through
-`X_cont`, and categorical covariates can be passed through `X_cat`.
+```{r simulation-setup, eval = FALSE}
+library(RCDC)
+library(aricode)
 
-The hyperparameter list should contain prior settings for the network,
-observation error, covariate, and mixing-proportion components:
+seed <- 123
+set.seed(seed)
 
-```{r hyper, eval = FALSE}
+n <- 200
+k <- 8
+M_local <- 4
+burn_in <- 500
+n_iter <- 1000
+
+rho_combos <- c(0.10, 0.10)
+zeta_combos <- list(c(1.0, 1.0))
+
 hyper <- list(
   sigma = 10,
   a_alpha = 1,
   b_alpha = 1,
   a_beta = 1,
   b_beta = 1,
-  mu0 = c(0, 0, 0),
-  iota0 = c(1, 1, 1),
-  a_tau = c(1, 1, 1),
-  b_tau = c(0.01, 0.01, 0.01),
-  F_cat = c(8),
-  gamma0 = c(1),
+  mu0 = rep(0, 8),
+  iota0 = rep(1, 8),
+  a_tau = rep(1, 8),
+  b_tau = rep(0.01, 8),
+  F_cat = c(8, 8),
+  gamma0 = c(1, 1),
   d = 1
 )
+
+B_strong <- matrix(-2, k, k)
+diag(B_strong) <- 0
+
+cat_rate_strong <- c(0.7, 0.7)
+
+means_k8 <- diag(k) - matrix(1 / k, k, k)
+means_k8 <- means_k8 * (10 / sqrt(2))
+
+se_strong <- 3
+tau2 <- diag(se_strong^2, 8)
+
+theta_vector <- rnorm(
+  n,
+  mean = zeta_combos[[1]][1],
+  sd = zeta_combos[[1]][2]
+)
+B_local <- B_strong
+alpha_local <- matrix(rho_combos[1], k, k)
+beta_local <- matrix(rho_combos[2], k, k)
+cat_rate_local <- cat_rate_strong
+tau2_local <- tau2
+```
+
+The simulated data are generated with `sim_data_new_thetainput()`:
+
+```{r simulate-data, eval = FALSE}
+sim <- sim_data_new_thetainput(
+  seed = seed,
+  n = n,
+  K = k,
+  M = M_local,
+  p_cont = 8,
+  p_cat = 2,
+  F_s = 8,
+  theta_true = theta_vector,
+  B = B_local,
+  alpha = alpha_local,
+  beta = beta_local,
+  mu = means_k8,
+  tau2 = tau2_local,
+  correct_rate = cat_rate_local
+)
+
+z_true <- sim$truth$z
 ```
 
 # Running RCDC
 
-Use `RobustCDC()` when you want the package to fit multiple candidate values of
-`K` and select the model with the smallest WAIC:
+Use `RobustCDC()` to fit candidate values of `K` and select the model with the
+smallest WAIC. The example below searches over `K = 5, ..., 10` and compares
+the resulting labels with the known simulation truth using ARI and NMI.
 
 ```{r robustcdc-fit, eval = FALSE}
-fit <- RobustCDC(
-  A_tilde = A_tilde,
-  X_cont = X_cont,
-  X_cat = NULL,
-  K = 5:30,
-  n_iter = 2000,
-  burn_in = 1000,
+RCDC <- RobustCDC(
+  A_tilde = sim$A_tilde,
+  X_cont = sim$X_cont,
+  X_cat = sim$X_cat,
+  K = 5:10,
+  n_iter = n_iter,
+  burn_in = burn_in,
   hyper = hyper
 )
 
-fit
-fit$z
-fit$waic_table
+z_RCDC <- RCDC$z
+ARI_RCDC <- ARI(z_RCDC, z_true)
+NMI_RCDC <- NMI(z_RCDC, z_true)
+k_RCDC <- length(unique(z_RCDC))
+
+RCDC
+ARI_RCDC
+NMI_RCDC
+k_RCDC
 ```
 
 # Fixed-K MCMC
@@ -100,12 +160,12 @@ For a single fixed value of `K`, call `robustCDC_MCMC()` directly:
 
 ```{r fixed-k, eval = FALSE}
 fit_k <- robustCDC_MCMC(
-  A_tilde = A_tilde,
-  X_cont = X_cont,
-  X_cat = NULL,
+  A_tilde = sim$A_tilde,
+  X_cont = sim$X_cont,
+  X_cat = sim$X_cat,
   K = 10,
-  n_iter = 2000,
-  burn_in = 1000,
+  n_iter = n_iter,
+  burn_in = burn_in,
   hyper = hyper
 )
 ```
