@@ -1,0 +1,34 @@
+Package: RCDC
+Title: Robust Covariate-Assisted Community Detection
+Version: 0.1.0
+Authors@R: c(
+    person("Zeyu", "Hu", email = "zeyu.hu8888@gmail.com", role = c("aut", "cre"))
+    )
+Author: Zeyu Hu [aut, cre]
+Maintainer: Zeyu Hu <zeyu.hu8888@gmail.com>
+Description: The RCDC package implements Robust Covariate-Assisted Community
+    Detection for replicated noisy networks with node-level covariates. It
+    provides Markov chain Monte Carlo fitting routines, WAIC-based model
+    selection, simulation utilities, and helper functions for robust community
+    detection analyses.
+Depends: R (>= 2.10)
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports:
+    c4,
+    loo,
+    MASS,
+    nimble,
+    pgdraw,
+    stats,
+    TruncatedNormal
+URL: https://github.com/zyhu888/RCDC
+BugReports: https://github.com/zyhu888/RCDC/issues
+Suggests:
+    knitr,
+    parallel,
+    rmarkdown
+VignetteBuilder: knitr
