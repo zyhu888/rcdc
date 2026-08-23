@@ -1,5 +1,5 @@
 Package: RCDC
-Title: Robust Community Detection for Noisy Networks with Covariates
+Title: Robust Community Detection for noisy networks with Covariates
 Version: 0.1.0
 Authors@R: c(
     person("Zeyu", "Hu", email = "zeyu.hu8888@gmail.com", role = c("aut", "cre"))

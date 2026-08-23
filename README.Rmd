@@ -1,5 +1,5 @@
 ---
-title: "**RCDC**: Robust Community Detection for Noisy Networks with Covariates"
+title: "**RCDC**: Robust Community Detection for noisy networks with Covariates"
 output: github_document
 bibliography: inst/REFERENCES.bib
 ---

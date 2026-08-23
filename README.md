@@ -1,4 +1,4 @@
-# **RCDC**: Robust Community Detection for Noisy Networks with Covariates
+# **RCDC**: Robust Community Detection for noisy networks with Covariates
 
 [![License:
 GPL-3](https://img.shields.io/badge/License-GPL--3-green.svg)](LICENSE.md)
