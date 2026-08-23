@@ -1,6 +1,6 @@
 \name{robustCDC_MCMC}
 \alias{robustCDC_MCMC}
-\title{Run the RobustCDC MCMC Sampler}
+\title{Run the RCDC MCMC Sampler}
 \usage{
 robustCDC_MCMC(A_tilde, X_cont = NULL, X_cat = NULL, K,
   n_iter = 3000, burn_in = 500, hyper, init = NULL)
@@ -19,5 +19,5 @@ robustCDC_MCMC(A_tilde, X_cont = NULL, X_cat = NULL, K,
 A list containing sampled labels, burn-in, and pointwise log-likelihood matrices.
 }
 \description{
-Runs the fixed-\code{K} RobustCDC Markov chain Monte Carlo sampler.
+Runs the fixed-\code{K} RCDC Markov chain Monte Carlo sampler.
 }

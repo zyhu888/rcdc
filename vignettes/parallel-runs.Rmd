@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Parallel RobustCDC Runs
+# Parallel RCDC Runs
 
 `RobustCDC()` evaluates candidate values of `K` serially. For larger analyses,
 a more efficient workflow is to run `robustCDC_MCMC()` separately for each

@@ -17,7 +17,7 @@ library(RCDC)
 
 # Introduction
 
-The **RCDC** package provides tools for robust community detection in
+The RCDC package provides tools for robust community detection in
 multiple noisy observations of a latent true network with node-level covariates. The main workflow models
 the latent network, observation error rates, community memberships, and
 covariate distributions jointly through an MCMC sampler.

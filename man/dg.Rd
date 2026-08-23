@@ -1,6 +1,6 @@
 \name{dg}
 \alias{dg}
-\title{Generate RobustCDC Data}
+\title{Generate RCDC Data}
 \usage{
 dg(seed, n, K, M, p_cont, p_cat, F_s, theta_true,
   B, alpha, beta, mu, tau2, correct_rate)

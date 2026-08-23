@@ -758,7 +758,7 @@ RobustCDC <- function(
   if (verbose) {
     
     cat("====================================\n")
-    cat("RobustCDC: Selecting K via WAIC\n")
+    cat("RCDC: Selecting K via WAIC\n")
     
     if (n_K==1){
       cat(sprintf("Fitting fixed K=%d\n",K))

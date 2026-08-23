@@ -1,5 +1,5 @@
 print.robustCDC <- function(x, ...) {
-  cat("RobustCDC fit\n")
+  cat("RCDC fit\n")
   cat("Selected K:", x$K, "\n")
   cat("WAIC:", x$WAIC, "\n")
   if (!is.null(x$waic_table)) {

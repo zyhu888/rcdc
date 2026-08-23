@@ -1,6 +1,6 @@
 \name{RobustCDC}
 \alias{RobustCDC}
-\title{Fit RobustCDC and Select the Number of Communities}
+\title{Fit RCDC and Select the Number of Communities}
 \usage{
 RobustCDC(A_tilde, X_cont = NULL, X_cat = NULL, K = 2:10,
   n_iter = 3000, burn_in = 500, hyper, init = NULL, verbose = TRUE)
@@ -23,8 +23,7 @@ An object of class \code{robustCDC} with selected \code{K}, WAIC, labels, and a 
 Runs \code{robustCDC_MCMC()} over candidate values of \code{K}, computes WAIC, and returns the model with the smallest WAIC.
 }
 \details{
-\code{RobustCDC()} is the primary interface for fitting Robust
-Covariate-Assisted Community Detection. For each candidate value in \code{K},
+\code{RobustCDC()} is the primary interface for fitting RCDC. For each candidate value in \code{K},
 the function calls \code{robustCDC_MCMC()}, stores the pointwise log-likelihood
 after burn-in, computes WAIC, and keeps the clustering estimate from the model
 with the smallest WAIC.

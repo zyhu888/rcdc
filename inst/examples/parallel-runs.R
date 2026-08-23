@@ -1,4 +1,4 @@
-## Parallel RobustCDC runs
+## Parallel RCDC runs
 ##
 ## This example mirrors the small runnable example in ?RobustCDC, but evaluates
 ## candidate K values in parallel by calling robustCDC_MCMC() directly.

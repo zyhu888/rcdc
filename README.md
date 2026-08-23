@@ -1,14 +1,12 @@
-RCDC: Robust Covariate-Assisted Community Detection
-================
+# **RCDC**: Robust Community Detection for Noisy Networks with Covariates
 
 [![License:
 GPL-3](https://img.shields.io/badge/License-GPL--3-green.svg)](LICENSE.md)
 
-## Robust Covariate-Assisted Community Detection
+## RCDC
 
-The package implements Robust Covariate-Assisted Community Detection
-(RCDC) for multiple noisy observations of a latent true network with node-level
-covariates.
+RCDC is designed for multiple noisy observations of a latent true network with
+node-level covariates.
 
 This R package provides functions to:
 
