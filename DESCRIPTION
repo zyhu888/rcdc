@@ -6,11 +6,12 @@ Authors@R: c(
     )
 Author: Zeyu Hu [aut, cre]
 Maintainer: Zeyu Hu <zeyu.hu8888@gmail.com>
-Description: The RCDC package implements methods for multiple noisy
-    observations of a latent true network with node-level covariates. It
-    provides Markov chain Monte Carlo fitting routines, WAIC-based model
-    selection, simulation utilities, and helper functions for robust community
-    detection analyses.
+Description: R package for Robust Community Detection for noisy networks with
+    Covariates (RCDC), integrating multiple noisy observations of a latent true
+    network with node-level covariates for community detection. It provides
+    Markov chain Monte Carlo fitting routines, WAIC-based model selection,
+    simulation utilities, and helper functions for robust community detection
+    analyses.
 Depends: R (>= 2.10)
 License: GPL (>= 3)
 Encoding: UTF-8

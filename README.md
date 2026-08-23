@@ -5,8 +5,9 @@ GPL-3](https://img.shields.io/badge/License-GPL--3-green.svg)](LICENSE.md)
 
 ## RCDC
 
-RCDC is designed for multiple noisy observations of a latent true network with
-node-level covariates.
+R package for Robust Community Detection for noisy networks with Covariates
+(RCDC), integrating multiple noisy observations of a latent true network with
+node-level covariates for community detection.
 
 This R package provides functions to:
 
