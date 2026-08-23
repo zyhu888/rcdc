@@ -5,19 +5,9 @@ GPL-3](https://img.shields.io/badge/License-GPL--3-green.svg)](LICENSE.md)
 
 ## RCDC
 
-R package for Robust Community Detection for noisy networks with Covariates
-(RCDC), integrating multiple noisy observations of a latent true network with
-node-level covariates for community detection.
-
-This R package provides functions to:
-
-- run the RCDC Markov chain Monte Carlo sampler;
-
-- select the number of communities using WAIC;
-
-- simulate network and covariate data for method evaluation;
-
-- access supplemental helper routines used by the main fitting workflow.
+This R package performs robust community detection by jointly leveraging
+multiple noisy observations of a latent true network and node-level covariates,
+with the number of communities selected by minimizing WAIC.
 
 ## Installation
 
