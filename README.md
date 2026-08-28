@@ -3,7 +3,7 @@
 [![License:
 GPL-3](https://img.shields.io/badge/License-GPL--3-green.svg)](LICENSE.md)
 
-## RCDC
+## rcdc
 
 This R package performs robust community detection by jointly leveraging
 multiple noisy observations of a latent true network and node-level covariates,
