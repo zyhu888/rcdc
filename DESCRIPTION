@@ -1,4 +1,4 @@
-Package: RCDC
+Package: rcdc
 Title: Robust Community Detection for noisy networks with Covariates
 Version: 0.1.0
 Authors@R: c(
@@ -40,8 +40,8 @@ Imports:
     pgdraw,
     stats,
     TruncatedNormal
-URL: https://github.com/zyhu888/RCDC
-BugReports: https://github.com/zyhu888/RCDC/issues
+URL: https://github.com/zyhu888/rcdc
+BugReports: https://github.com/zyhu888/rcdc/issues
 Suggests:
     aricode,
     knitr,

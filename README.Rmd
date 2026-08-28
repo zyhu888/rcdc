@@ -1,5 +1,5 @@
 ---
-title: "**RCDC**: Robust Community Detection for noisy networks with Covariates"
+title: "**rcdc**: Robust Community Detection for noisy networks with Covariates"
 output: github_document
 bibliography: inst/REFERENCES.bib
 ---
@@ -22,11 +22,11 @@ with the number of communities selected by minimizing WAIC.
 
 ## Installation
 
-You can install `RCDC` from GitHub with:
+You can install `rcdc` from GitHub with:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
-devtools::install_github("zyhu888/RCDC")
+devtools::install_github("zyhu888/rcdc")
 ```
 
 ## Main Functions
@@ -49,7 +49,7 @@ run fixed-`K` jobs in parallel with `robustCDC_MCMC()` and combine the WAIC
 results afterward. See the parallel-runs vignette and the installed example:
 
 ```{r parallel-template, eval = FALSE}
-system.file("examples", "parallel-runs.R", package = "RCDC")
+system.file("examples", "parallel-runs.R", package = "rcdc")
 ```
 
 ## References

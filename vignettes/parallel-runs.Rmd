@@ -28,7 +28,7 @@ evaluates candidate `K = 2, 3, 4, 5` in parallel.
 ## Optional: uncomment if you use a custom R library on a cluster.
 ## .libPaths("~/rlibs")
 
-library(RCDC)
+library(rcdc)
 library(parallel)
 
 seed <- 123
@@ -90,7 +90,7 @@ sim <- dg(
 candidate_K <- 2:5
 n_cores <- length(candidate_K)
 
-out_dir <- file.path(tempdir(), "RCDC_parallel_example")
+out_dir <- file.path(tempdir(), "rcdc_parallel_example")
 if (!dir.exists(out_dir)) {
   dir.create(out_dir, recursive = TRUE)
 }
@@ -176,5 +176,5 @@ aricode::NMI(z_hat, z_true)
 The same script is installed with the package and can be found with:
 
 ```{r find-example, eval = FALSE}
-system.file("examples", "parallel-runs.R", package = "RCDC")
+system.file("examples", "parallel-runs.R", package = "rcdc")
 ```

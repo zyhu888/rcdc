@@ -6,7 +6,7 @@
 ## Optional: uncomment if you use a custom R library on a cluster.
 ## .libPaths("~/rlibs")
 
-library(RCDC)
+library(rcdc)
 library(parallel)
 
 seed <- 123
@@ -68,7 +68,7 @@ sim <- dg(
 candidate_K <- 2:5
 n_cores <- length(candidate_K)
 
-out_dir <- file.path(tempdir(), "RCDC_parallel_example")
+out_dir <- file.path(tempdir(), "rcdc_parallel_example")
 if (!dir.exists(out_dir)) {
   dir.create(out_dir, recursive = TRUE)
 }

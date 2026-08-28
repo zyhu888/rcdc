@@ -39,7 +39,7 @@ The returned label vector \code{z} is obtained from the post-burn-in MCMC
 samples by taking the posterior modal community label for each node.
 }
 \examples{
-library(RCDC)
+library(rcdc)
 library(aricode)
 
 seed <- 123

@@ -1,4 +1,4 @@
-# **RCDC**: Robust Community Detection for noisy networks with Covariates
+# **rcdc**: Robust Community Detection for noisy networks with Covariates
 
 [![License:
 GPL-3](https://img.shields.io/badge/License-GPL--3-green.svg)](LICENSE.md)
@@ -11,11 +11,11 @@ with the number of communities selected by minimizing WAIC.
 
 ## Installation
 
-You can install `RCDC` from GitHub with:
+You can install `rcdc` from GitHub with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("zyhu888/RCDC")
+devtools::install_github("zyhu888/rcdc")
 ```
 
 ## Main Functions
@@ -39,7 +39,7 @@ results afterward. A SLURM/`parallel::mclapply()` template is included in the
 parallel-runs vignette and at:
 
 ``` r
-system.file("examples", "parallel-runs.R", package = "RCDC")
+system.file("examples", "parallel-runs.R", package = "rcdc")
 ```
 
 ## References

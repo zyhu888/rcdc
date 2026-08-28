@@ -1,8 +1,8 @@
 ---
-title: "RCDC-introduction"
+title: "rcdc-introduction"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{RCDC-introduction}
+  %\VignetteIndexEntry{rcdc-introduction}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-library(RCDC)
+library(rcdc)
 ```
 
 # Introduction
@@ -51,7 +51,7 @@ observations of a latent true network, three continuous covariates, and two
 categorical covariates.
 
 ```{r simulation-setup, eval = FALSE}
-library(RCDC)
+library(rcdc)
 library(aricode)
 
 seed <- 123
