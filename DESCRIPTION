@@ -3,22 +3,22 @@ Title: Robust Community Detection for noisy networks with Covariates
 Version: 0.1.0
 Authors@R: c(
     person("Zeyu", "Hu", email = "zeyu.hu8888@gmail.com", role = c("aut", "cre")),
-    person("Panpan", "Zhang", role = "aut"),
+    person("Panpan", "Zhang", email = "panpan.zhang@vumc.org", role = "aut"),
     person("Frederick H.", "Xu", role = "aut"),
-    person("Suprateek", "Kundu", role = "aut"),
-    person("Yize", "Zhao", role = "aut"),
-    person("Li", "Shen", role = "aut"),
-    person("Jun", "Yan", role = "aut"),
-    person("Wenrui", "Li", email = "wel17017@uconn.edu", role = "aut")
+    person("Suprateek", "Kundu", email = "skundu2@mdanderson.org", role = "aut"),
+    person("Yize", "Zhao", email = "yize.zhao@yale.edu", role = "aut"),
+    person("Li", "Shen", email = "li.shen@pennmedicine.upenn.edu", role = "aut"),
+    person("Jun", "Yan", email = "jun.yan@uconn.edu", role = "aut"),
+    person("Wenrui", "Li", email = "wenrui.li@uconn.edu", role = "aut")
     )
 Author: Zeyu Hu [aut, cre],
-    Panpan Zhang [aut],
+    Panpan Zhang <panpan.zhang@vumc.org> [aut],
     Frederick H. Xu [aut],
-    Suprateek Kundu [aut],
-    Yize Zhao [aut],
-    Li Shen [aut],
-    Jun Yan [aut],
-    Wenrui Li [aut]
+    Suprateek Kundu <skundu2@mdanderson.org> [aut],
+    Yize Zhao <yize.zhao@yale.edu> [aut],
+    Li Shen <li.shen@pennmedicine.upenn.edu> [aut],
+    Jun Yan <jun.yan@uconn.edu> [aut],
+    Wenrui Li <wenrui.li@uconn.edu> [aut]
 Maintainer: Zeyu Hu <zeyu.hu8888@gmail.com>
 Description: R package for Robust Community Detection for noisy networks with
     Covariates (RCDC), integrating multiple noisy observations of a latent true
