@@ -3,7 +3,6 @@ Title: Robust Community Detection for noisy networks with Covariates
 Version: 0.1.0
 Authors@R: c(
     person("Zeyu", "Hu", email = "zeyu.hu8888@gmail.com", role = c("aut", "cre")),
-    person("Panpan", "Zhang", email = "panpan.zhang@vumc.org", role = "aut"),
     person("Frederick H.", "Xu", role = "aut"),
     person("Suprateek", "Kundu", email = "skundu2@mdanderson.org", role = "aut"),
     person("Yize", "Zhao", email = "yize.zhao@yale.edu", role = "aut"),
@@ -12,7 +11,6 @@ Authors@R: c(
     person("Wenrui", "Li", email = "wenrui.li@uconn.edu", role = "aut")
     )
 Author: Zeyu Hu [aut, cre],
-    Panpan Zhang <panpan.zhang@vumc.org> [aut],
     Frederick H. Xu [aut],
     Suprateek Kundu <skundu2@mdanderson.org> [aut],
     Yize Zhao <yize.zhao@yale.edu> [aut],
