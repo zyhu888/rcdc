@@ -123,7 +123,7 @@ Use `rcdc()` to fit candidate values of `K` and select the model with the
 smallest WAIC. The example below searches over `K = 2, ..., 5` and compares
 the resulting labels with the known simulation truth using ARI and NMI.
 
-```{r robustcdc-fit, eval = FALSE}
+```{r rcdc-fit, eval = FALSE}
 fit <- rcdc(
   A_tilde = sim$A_tilde,
   X_cont = sim$X_cont,
