@@ -16,12 +16,12 @@ knitr::opts_chunk$set(
 
 # Parallel RCDC Runs
 
-`RobustCDC()` evaluates candidate values of `K` serially. For larger analyses,
-a more efficient workflow is to run `robustCDC_MCMC()` separately for each
+`rcdc()` evaluates candidate values of `K` serially. For larger analyses,
+a more efficient workflow is to run `rcdc_MCMC()` separately for each
 candidate value of `K`, save one result per candidate model, and select the
 final model using WAIC.
 
-The template below mirrors the small runnable example in `?RobustCDC`, but
+The template below mirrors the small runnable example in `?rcdc`, but
 evaluates candidate `K = 2, 3, 4, 5` in parallel.
 
 ```{r parallel-template, eval = FALSE}
@@ -107,7 +107,7 @@ run_one_K <- function(Ki) {
       return(NULL)
     }
 
-    fit <- robustCDC_MCMC(
+    fit <- rcdc_MCMC(
       A_tilde = sim$A_tilde,
       X_cont = sim$X_cont,
       X_cat = sim$X_cat,

@@ -1,4 +1,4 @@
-print.robustCDC <- function(x, ...) {
+print.rcdc <- function(x, ...) {
   cat("RCDC fit\n")
   cat("Selected K:", x$K, "\n")
   cat("WAIC:", x$WAIC, "\n")

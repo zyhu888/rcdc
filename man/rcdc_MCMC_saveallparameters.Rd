@@ -1,8 +1,8 @@
-\name{robustCDC_MCMC_saveallparameters}
-\alias{robustCDC_MCMC_saveallparameters}
+\name{rcdc_MCMC_saveallparameters}
+\alias{rcdc_MCMC_saveallparameters}
 \title{Run RCDC MCMC and Save Full Parameter Traces}
 \usage{
-robustCDC_MCMC_saveallparameters(A_tilde, X_cont = NULL, X_cat = NULL, K,
+rcdc_MCMC_saveallparameters(A_tilde, X_cont = NULL, X_cat = NULL, K,
   n_iter = 3000, burn_in = 500, hyper, init = NULL)
 }
 \arguments{

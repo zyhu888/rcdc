@@ -1,8 +1,8 @@
-\name{robustCDC_MCMC}
-\alias{robustCDC_MCMC}
+\name{rcdc_MCMC}
+\alias{rcdc_MCMC}
 \title{Run the RCDC MCMC Sampler}
 \usage{
-robustCDC_MCMC(A_tilde, X_cont = NULL, X_cat = NULL, K,
+rcdc_MCMC(A_tilde, X_cont = NULL, X_cat = NULL, K,
   n_iter = 3000, burn_in = 500, hyper, init = NULL)
 }
 \arguments{

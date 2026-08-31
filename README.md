@@ -20,12 +20,12 @@ devtools::install_github("zyhu888/rcdc")
 
 ## Main Functions
 
-- `RobustCDC()` is the primary user-facing function. It fits candidate
+- `rcdc()` is the primary user-facing function. It fits candidate
   community numbers and returns the selected model.
 
-- `robustCDC_MCMC()` runs the MCMC sampler for a fixed number of communities.
+- `rcdc_MCMC()` runs the MCMC sampler for a fixed number of communities.
 
-- `robustCDC_MCMC_saveallparameters()` runs the sampler and stores full
+- `rcdc_MCMC_saveallparameters()` runs the sampler and stores full
   parameter traces for detailed diagnostics.
 
 - `dg()` simulates multiple noisy observations of a latent true network and
@@ -33,8 +33,8 @@ devtools::install_github("zyhu888/rcdc")
 
 ## Parallel Runs
 
-`RobustCDC()` evaluates candidate values of `K` serially. For large analyses,
-run fixed-`K` jobs in parallel with `robustCDC_MCMC()` and combine the WAIC
+`rcdc()` evaluates candidate values of `K` serially. For large analyses,
+run fixed-`K` jobs in parallel with `rcdc_MCMC()` and combine the WAIC
 results afterward. A SLURM/`parallel::mclapply()` template is included in the
 parallel-runs vignette and at:
 

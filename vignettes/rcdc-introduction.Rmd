@@ -24,15 +24,15 @@ covariate distributions jointly through an MCMC sampler.
 
 The package implements:
 
-1. `RobustCDC()`  
+1. `rcdc()`  
   The primary user-facing function. It fits a set of candidate community
   numbers and selects the final value of `K` using WAIC.
 
-2. `robustCDC_MCMC()`  
-  The fixed-`K` sampler used internally by `RobustCDC()`. This is useful for
+2. `rcdc_MCMC()`  
+  The fixed-`K` sampler used internally by `rcdc()`. This is useful for
   large-scale parallel workflows where each candidate `K` is run separately.
 
-3. `robustCDC_MCMC_saveallparameters()`  
+3. `rcdc_MCMC_saveallparameters()`  
   A diagnostic version of the sampler that keeps full traces of latent
   networks and model parameters.
 
@@ -119,12 +119,12 @@ z_true <- sim$truth$z
 
 # Running RCDC
 
-Use `RobustCDC()` to fit candidate values of `K` and select the model with the
+Use `rcdc()` to fit candidate values of `K` and select the model with the
 smallest WAIC. The example below searches over `K = 2, ..., 5` and compares
 the resulting labels with the known simulation truth using ARI and NMI.
 
 ```{r robustcdc-fit, eval = FALSE}
-fit <- RobustCDC(
+fit <- rcdc(
   A_tilde = sim$A_tilde,
   X_cont = sim$X_cont,
   X_cat = sim$X_cat,
@@ -148,10 +148,10 @@ k_RCDC
 
 # Fixed-K MCMC
 
-For a single fixed value of `K`, call `robustCDC_MCMC()` directly:
+For a single fixed value of `K`, call `rcdc_MCMC()` directly:
 
 ```{r fixed-k, eval = FALSE}
-fit_k <- robustCDC_MCMC(
+fit_k <- rcdc_MCMC(
   A_tilde = sim$A_tilde,
   X_cont = sim$X_cont,
   X_cat = sim$X_cat,

@@ -1,5 +1,5 @@
 ## ---- MCMC function ----
-robustCDC_MCMC <- function(
+rcdc_MCMC <- function(
     A_tilde,     
     X_cont = NULL,
     X_cat  = NULL,
@@ -735,7 +735,7 @@ canonical_relabel <- function(z, K) {
 
 
 ## ---- final ----
-RobustCDC <- function(
+rcdc <- function(
     A_tilde,
     X_cont = NULL,
     X_cat  = NULL,
@@ -795,7 +795,7 @@ RobustCDC <- function(
     
     
     ## 1) Run MCMC
-    fit <- robustCDC_MCMC(
+    fit <- rcdc_MCMC(
       
       A_tilde = A_tilde,
       X_cont  = X_cont,
@@ -889,7 +889,7 @@ RobustCDC <- function(
     
   )
   
-  class(out) <- "robustCDC"
+  class(out) <- "rcdc"
   
   return(out)
 }
@@ -897,7 +897,7 @@ RobustCDC <- function(
 
 
 ## ---- main function (save all parameters) ----
-robustCDC_MCMC_saveallparameters <- function(
+rcdc_MCMC_saveallparameters <- function(
     A_tilde,     
     X_cont = NULL,
     X_cat  = NULL,

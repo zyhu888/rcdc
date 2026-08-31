@@ -1,7 +1,7 @@
 ## Parallel RCDC runs
 ##
-## This example mirrors the small runnable example in ?RobustCDC, but evaluates
-## candidate K values in parallel by calling robustCDC_MCMC() directly.
+## This example mirrors the small runnable example in ?rcdc, but evaluates
+## candidate K values in parallel by calling rcdc_MCMC() directly.
 
 ## Optional: uncomment if you use a custom R library on a cluster.
 ## .libPaths("~/rlibs")
@@ -85,7 +85,7 @@ run_one_K <- function(Ki) {
       return(NULL)
     }
 
-    fit <- robustCDC_MCMC(
+    fit <- rcdc_MCMC(
       A_tilde = sim$A_tilde,
       X_cont = sim$X_cont,
       X_cat = sim$X_cat,

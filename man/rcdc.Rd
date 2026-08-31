@@ -1,8 +1,8 @@
-\name{RobustCDC}
-\alias{RobustCDC}
+\name{rcdc}
+\alias{rcdc}
 \title{Fit RCDC and Select the Number of Communities}
 \usage{
-RobustCDC(A_tilde, X_cont = NULL, X_cat = NULL, K = 2:10,
+rcdc(A_tilde, X_cont = NULL, X_cat = NULL, K = 2:10,
   n_iter = 3000, burn_in = 500, hyper, init = NULL, verbose = TRUE)
 }
 \arguments{
@@ -17,14 +17,14 @@ RobustCDC(A_tilde, X_cont = NULL, X_cat = NULL, K = 2:10,
 \item{verbose}{Logical; print progress messages.}
 }
 \value{
-An object of class \code{robustCDC} with selected \code{K}, WAIC, labels, and a WAIC table.
+An object of class \code{rcdc} with selected \code{K}, WAIC, labels, and a WAIC table.
 }
 \description{
-Runs \code{robustCDC_MCMC()} over candidate values of \code{K}, computes WAIC, and returns the model with the smallest WAIC.
+Runs \code{rcdc_MCMC()} over candidate values of \code{K}, computes WAIC, and returns the model with the smallest WAIC.
 }
 \details{
-\code{RobustCDC()} is the primary interface for fitting RCDC. For each candidate value in \code{K},
-the function calls \code{robustCDC_MCMC()}, stores the pointwise log-likelihood
+\code{rcdc()} is the primary interface for fitting RCDC. For each candidate value in \code{K},
+the function calls \code{rcdc_MCMC()}, stores the pointwise log-likelihood
 after burn-in, computes WAIC, and keeps the clustering estimate from the model
 with the smallest WAIC.
 
@@ -98,7 +98,7 @@ sim <- dg(
   correct_rate = cat_rate
 )
 
-fit <- RobustCDC(
+fit <- rcdc(
   A_tilde = sim$A_tilde,
   X_cont = sim$X_cont,
   X_cat = sim$X_cat,
