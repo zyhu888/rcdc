@@ -44,4 +44,7 @@ system.file("examples", "parallel-runs.R", package = "rcdc")
 
 ## References
 
-References will be added after the manuscript is available.
+Hu, Z., Xu, F. H., Kundu, S., Zhao, Y., Shen, L., Yan, J., & Li, W. (2026).
+[Robust Community Detection for Noisy Networks with Covariates: Application to
+Functional Brain Networks](https://arxiv.org/abs/2609.05654). *arXiv preprint
+arXiv:2609.05654*. [PDF](https://arxiv.org/pdf/2609.05654)
