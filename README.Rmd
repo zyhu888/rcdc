@@ -61,10 +61,7 @@ If you use `rcdc` in your research, please cite:
   title   = {Robust Community Detection for Noisy Networks with Covariates: Application to Functional Brain Networks},
   author  = {Hu, Zeyu and Xu, Frederick H. and Kundu, Suprateek and Zhao, Yize and Shen, Li and Yan, Jun and Li, Wenrui},
   journal = {arXiv preprint arXiv:2609.05654},
-  year    = {2026},
-  month   = sep,
-  doi     = {10.48550/arXiv.2609.05654},
-  url     = {https://arxiv.org/abs/2609.05654}
+  year    = {2026}
 }
 ```
 
