@@ -42,6 +42,22 @@ parallel-runs vignette and at:
 system.file("examples", "parallel-runs.R", package = "rcdc")
 ```
 
+## Citation
+
+If you use `rcdc` in your research, please cite:
+
+``` bibtex
+@article{hu2026robust,
+  title   = {Robust Community Detection for Noisy Networks with Covariates: Application to Functional Brain Networks},
+  author  = {Hu, Zeyu and Xu, Frederick H. and Kundu, Suprateek and Zhao, Yize and Shen, Li and Yan, Jun and Li, Wenrui},
+  journal = {arXiv preprint arXiv:2609.05654},
+  year    = {2026},
+  month   = sep,
+  doi     = {10.48550/arXiv.2609.05654},
+  url     = {https://arxiv.org/abs/2609.05654}
+}
+```
+
 ## References
 
 Hu, Z., Xu, F. H., Kundu, S., Zhao, Y., Shen, L., Yan, J., & Li, W. (2026).
